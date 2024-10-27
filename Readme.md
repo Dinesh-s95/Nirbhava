@@ -3,3 +3,4 @@ use NIRBHAVA; // Replace with your actual database name
 db.createCollection('exampleCollection');
 show databases;
 
+.
