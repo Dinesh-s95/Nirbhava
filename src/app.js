@@ -3,7 +3,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/AuthRoutes');
 const userDetailsRoutes = require('./routes/UserDetailsRoute');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./openapi.json');
+const swaggerDocument = require('../openapi.json');
 
 require('dotenv').config();
 
