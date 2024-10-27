@@ -1,0 +1,32 @@
+name: Build and Publish Docker Image to Vultr Container Registry
+
+on:
+  push:
+    branches:
+      - main # Change this to the branch you want to trigger the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Vultr Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.VULTR_CONTAINER_REGISTRY_URL }}
+          username: ${{ secrets.VULTR_CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.VULTR_CONTAINER_REGISTRY_PASSWORD }}
+
+      - name: Build the Docker image
+        run: |
+          docker build -t ${{ secrets.VULTR_CONTAINER_REGISTRY_URL }}/nirbhava-api:latest ../../
+
+      - name: Push the Docker image
+        run: |
+          docker push ${{ secrets.VULTR_CONTAINER_REGISTRY_URL }}/nirbhava-api:latest
