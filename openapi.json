@@ -1,0 +1,66 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "JWT Authentication API",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/signup": {
+        "post": {
+          "summary": "Register a new user",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User registered"
+            }
+          }
+        }
+      },
+      "/signin": {
+        "post": {
+          "summary": "Sign in a user",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful sign-in"
+            },
+            "401": {
+              "description": "Invalid credentials"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  
