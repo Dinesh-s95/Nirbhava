@@ -25,8 +25,8 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build -t ${{ secrets.VULTR_CONTAINER_REGISTRY_URL }}/nirbhava-api:latest -f Dockerfile ..
+          docker build -t ${{ secrets.VULTR_REGISTRY_NAME }}/nirbhava-api:latest ../../
 
       - name: Push the Docker image
         run: |
-          docker push ${{ secrets.VULTR_CONTAINER_REGISTRY_URL }}/nirbhava-api:latest
+          docker push ${{ secrets.VULTR_REGISTRY_NAME }}/nirbhava-api:latest
