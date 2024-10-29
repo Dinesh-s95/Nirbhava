@@ -45,7 +45,9 @@ jobs:
           version: 'latest'
 
       - name: Copy Kubeconfig
-        run: cp kube-confidential/config $HOME/.kube/config  # Update this with the correct path to your kubeconfig file
+        run: |
+          mkdir -p $HOME/.kube  # Create the .kube directory if it doesn't exist
+          cp path/to/your/kubeconfig $HOME/.kube/config 
 
       - name: Helm install/upgrade
         run: |
