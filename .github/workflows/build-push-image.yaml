@@ -3,7 +3,7 @@ name: Build and Publish Docker Image to Vultr Container Registry
 on:
   push:
     branches:
-      - main # Change this to the branch you want to trigger the workflow
+      - main  # Change this to the branch you want to trigger the workflow
 
 jobs:
   build:
@@ -30,3 +30,24 @@ jobs:
       - name: Push the Docker image
         run: |
           docker push ${{ secrets.VULTR_REGISTRY_NAME }}/nirbhava-api:latest
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'latest'
+
+      - name: Copy Kubeconfig
+        run: cp kube-confidential/config $HOME/.kube/config  # Update this with the correct path to your kubeconfig file
+
+      - name: Helm install/upgrade
+        run: |
+          helm upgrade --install nirbhava-api ./helm-template
+

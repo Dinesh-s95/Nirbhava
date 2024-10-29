@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  type: NodePort  # Specify NodePort directly here
+  ports:
+    - port: {{ .Values.service.port }}          # Port to expose
+      targetPort: {{ .Values.service.port }}     # Port on the container
+      nodePort: {{ .Values.service.nodePort }}   # Set this explicitly to 5001
+  selector:
+    app: {{ .Release.Name }}

@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: ewr.vultrcr.com/nirbhavacontainerregistry/nirbhava-api  # Replace with your Vultr registry URL
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  type: NodePort       # Service type set to NodePort
+  port: 5001           # Internal port to expose
+  nodePort: 30001      # Set NodePort to a value within the valid range
+
+
+
+resources: {}  # Define CPU/Memory limits if needed
+namespace: nirbhava
+
+
+
