@@ -47,7 +47,7 @@ jobs:
       - name: Copy Kubeconfig
         run: |
           mkdir -p $HOME/.kube  # Create the .kube directory if it doesn't exist
-          cp path/to/your/kubeconfig $HOME/.kube/config 
+          cp kube-confidential/config $HOME/.kube/config 
 
       - name: Helm install/upgrade
         run: |
