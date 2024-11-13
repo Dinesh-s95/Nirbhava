@@ -15,7 +15,7 @@ exports.signup = async (req, res) => {
         // Create a new user
         const user = new User({ username, password, phonenumber });
         await user.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ message: 'User registered successfully', userId: user._id });
     } catch (error) {
         if (error.name === 'ValidationError') {
             // Return a validation error message
@@ -45,7 +45,7 @@ exports.signin = async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token, userId: user._id });
     } catch (error) {
         // General server error response
         res.status(500).json({ message: 'Server error', error: error.message });
