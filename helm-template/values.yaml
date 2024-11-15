@@ -7,7 +7,7 @@ image:
 
 service:
   type: NodePort       # Service type set to NodePort
-  port: 5001           # Internal port to expose
+  port: 5000          # Internal port to expose
   nodePort: 30001      # Set NodePort to a value within the valid range
 
 
