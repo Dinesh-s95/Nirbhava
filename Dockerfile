@@ -9,14 +9,14 @@ COPY *.json ./
 
 #ENV
 ARG DB_SECRET
-echo "dbsecret:"  DB_SECRET
+echo "dbsecret: $DB_SECRET"
 # Install the app dependencies
 RUN npm install --production
 
 # Copy the rest of the application code
 COPY src ./src
 
-RUN sed -i "s|DB_SCREAT_PLACEHOLDER|$DB_SCREAT|g" src/config/db.js
+RUN sed -i "s|DB_SCREAT_PLACEHOLDER|$DB_SECRET|g" src/config/db.js
 
 # Runs on port 5001 as defined by .env
 EXPOSE 5001
