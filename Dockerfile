@@ -9,7 +9,7 @@ COPY *.json ./
 
 #ENV
 ARG DB_SECRET
-
+RUN echo "secret: $DB_SECRET"
 # Install the app dependencies
 RUN npm install --production
 
