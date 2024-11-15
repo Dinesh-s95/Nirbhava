@@ -22,7 +22,9 @@ jobs:
           registry: ${{ secrets.VULTR_CONTAINER_REGISTRY_URL }}
           username: ${{ secrets.VULTR_CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.VULTR_CONTAINER_REGISTRY_PASSWORD }}
-
+      - name: Setting ENV
+        run: |
+          sed -i "s|DB_SCREAT_PLACEHOLDER|${{ secrets.DB_SECRET }}|g" src/config/db.js
       - name: Build the Docker image
         run: |
           docker build -t ${{ secrets.VULTR_REGISTRY_NAME }}/nirbhava-api:latest -f Dockerfile .
