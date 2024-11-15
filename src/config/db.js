@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const connectDB = async () => {
-    const DB_CONNECTION = 'DB_SCREAT_PLACEHOLDER'
+    const DB_CONNECTION = 'DB_SECRET_PLACEHOLDER'
     try {
         await mongoose.connect(DB_CONNECTION, {
             useNewUrlParser: true
