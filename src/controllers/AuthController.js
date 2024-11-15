@@ -29,6 +29,7 @@ exports.signup = async (req, res) => {
 // Sign-in Controller
 exports.signin = async (req, res) => {
     const { username, password } = req.body;
+    const JWT_SECRET = 'bV3!zA@0Q#R1y8LdK^j7Ps$2T&u9WhXm';
 
     try {
         const user = await User.findOne({ username });
@@ -44,7 +45,7 @@ exports.signin = async (req, res) => {
         }
 
         // Generate JWT token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
         res.json({ token, userId: user._id });
     } catch (error) {
         // General server error response
