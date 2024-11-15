@@ -25,6 +25,7 @@ jobs:
       - name: Setting ENV
         run: |
           sed -i "s|DB_SCREAT_PLACEHOLDER|${{ secrets.DB_SECRET }}|g" src/config/db.js
+          sed -i "s|JWT_SCREAT_PLACEHOLDER|${{ secrets.JWT_SECRET }}|g" src/middlewares/TokenValidator.js
       - name: Build the Docker image
         run: |
           docker build -t ${{ secrets.VULTR_REGISTRY_NAME }}/nirbhava-api:latest -f Dockerfile .
