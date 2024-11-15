@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const protect = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
-    const JWT_SECRET = JWT_SECRET_PLACEHOLDER
+    const JWT_SECRET = 'bV3!zA@0Q#R1y8LdK^j7Ps$2T&u9WhXm';
 
     if (!token) {
         return res.status(401).json({ message: 'No token, authorization denied' });
