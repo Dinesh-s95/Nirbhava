@@ -3,7 +3,7 @@ const UserDetails = require('../models/UserDetails');
 const AuthUser = require('../models/UserModel'); // Assuming this is the auth schema
 
 exports.addUserDetails = async (req, res) => {
-    const { userId, contactPerson, contactPersonPhone, questions } = req.body;
+    const { userId, contactPersons, questions } = req.body;
 
     try {
         // Check if the user exists
@@ -21,8 +21,8 @@ exports.addUserDetails = async (req, res) => {
         // Save the new details
         const userDetails = new UserDetails({
             userId,
-            contactPerson,
-            contactPersonPhone,
+            contactPersons,
+            // contactPersonPhone,
             questions,
         });
         await userDetails.save();
@@ -51,8 +51,8 @@ exports.getUserDetails = async (req, res) => {
         // Transform the response to include all fields for each user's details
         const response = userDetails.map(detail => ({
             userId: detail.userId,                  // The userId from UserDetails
-            contactPerson: detail.contactPerson,     // UserDetails field
-            contactPersonPhone: detail.contactPersonPhone, // UserDetails field
+            contactPersons: detail.contactPersons,     // UserDetails field
+            // contactPersonPhone: detail.contactPersonPhone, // UserDetails field
             questions: detail.questions,             // UserDetails field
             createdAt: detail.createdAt,             // UserDetails field
             updatedAt: detail.updatedAt,             // UserDetails field
@@ -139,3 +139,40 @@ exports.validateAnswers = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+// controllers/UserDetailsController.js
+
+// New API to fetch contact persons for a given userId
+exports.getContactPersonsByUserId = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Check if userId is provided
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
+        // Fetch only the contactPersons field for the specified user
+        const userContactPersons = await UserDetails.findOne({ userId }, 'userId contactPersons');
+
+        // Check if the user details exist
+        if (!userContactPersons) {
+            return res.status(404).json({ message: 'User not found or no contact persons available' });
+        }
+
+        // Format the response to include userId and contact person details (name and phone)
+        const response = {
+            userId: userContactPersons.userId,
+            contactPersons: userContactPersons.contactPersons.map(cp => ({
+                name: cp.name,
+                phone: cp.phone
+            }))
+        };
+
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+

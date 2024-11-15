@@ -9,14 +9,18 @@ const UserDetailsSchema = new Schema({
         required: true,
         unique: true,
     },
-    contactPerson: {
-        type: String,
-        required: true,
-    },
-    contactPersonPhone: {
-        type: String,
-        required: true,
-    },
+    contactPersons: [
+        {
+            name: {
+                type: String,
+                required: true,
+            },
+            phone: {
+                type: String,
+                required: true,
+            },
+        }
+    ],
     questions: [
         {
             question: String,
