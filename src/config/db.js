@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const connectDB = async () => {
+    const DB_CONNECTION = 'DB_SCREAT_PLACEHOLDER'
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
+        await mongoose.connect(DB_CONNECTION, {
             useNewUrlParser: true
         });
         console.log('MongoDB connected');
